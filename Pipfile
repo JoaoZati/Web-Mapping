@@ -6,6 +6,7 @@ name = "pypi"
 [packages]
 folium = "*"
 ipython = "*"
+numpy = "*"
 
 [dev-packages]
 
