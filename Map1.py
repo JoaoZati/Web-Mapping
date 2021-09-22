@@ -10,4 +10,4 @@ for coordinate in coordinates:
 
 map.add_child(fg)
 
-map.save("index.html")
+map.save("Map1.html")
