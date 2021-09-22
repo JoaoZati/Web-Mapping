@@ -1,4 +1,6 @@
 import folium
+import pandas as pd
+import numpy as np
 
 list_vulcao = []
 with open('Volcanoes.txt', 'r') as file:
@@ -21,4 +23,4 @@ for coordinate in coordinates:
 
 map.add_child(fg)
 
-map.save("Map_vulcao.html")
+map.save("Map_vulcao_withopen.html")
