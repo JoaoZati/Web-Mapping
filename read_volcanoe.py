@@ -16,16 +16,23 @@ def color_producer(elevation):
 
 
 map = folium.Map()
-fg = folium.FeatureGroup(name="My map")
+fgv = folium.FeatureGroup(name="Volcanoes")
 
 for lt, ln, el in zip(lat, lon, elev):
-    fg.add_child(folium.Marker(location=[lt, ln], popup=str(el) + ' m', icon=folium.Icon(color_producer(el))))
+    fgv.add_child(folium.Marker(location=[lt, ln], popup=str(el) + ' m', icon=folium.Icon(color_producer(el))))
 
 data = open('world.json', 'r', encoding='utf-8-sig').read()
-fg.add_child(folium.GeoJson(data=data, style_function=lambda x: {'fillColor':
-                                                                 'green' if x['properties']['POP2005'] < 10_000_000
-                                                                 else 'orange' if 10_000_000 <= x['properties']['POP2005'] <= 20_000_000
-                                                                 else 'red'}))
 
-map.add_child(fg)
+fgp = folium.FeatureGroup(name="Population")
+
+fgp.add_child(folium.GeoJson(data=data, style_function=lambda x: {'fillColor':
+                                                                      'green' if x['properties']['POP2005'] < 10_000_000
+                                                                      else 'orange' if 10_000_000 <= x['properties'][
+                                                                          'POP2005'] <= 20_000_000
+                                                                      else 'red'}))
+
+map.add_child(fgv)
+map.add_child(fgp)
+map.add_child(folium.LayerControl())
+
 map.save("Map_vulcao.html")
