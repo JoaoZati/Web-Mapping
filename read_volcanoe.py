@@ -21,6 +21,11 @@ fg = folium.FeatureGroup(name="My map")
 for lt, ln, el in zip(lat, lon, elev):
     fg.add_child(folium.Marker(location=[lt, ln], popup=str(el) + ' m', icon=folium.Icon(color_producer(el))))
 
-map.add_child(fg)
+data = open('world.json', 'r', encoding='utf-8-sig').read()
+fg.add_child(folium.GeoJson(data=data, style_function=lambda x: {'fillColor':
+                                                                 'green' if x['properties']['POP2005'] < 10_000_000
+                                                                 else 'orange' if 10_000_000 <= x['properties']['POP2005'] <= 20_000_000
+                                                                 else 'red'}))
 
+map.add_child(fg)
 map.save("Map_vulcao.html")
